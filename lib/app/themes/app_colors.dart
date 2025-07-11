@@ -9,4 +9,6 @@ class AppColors {
   static const purple = Colors.purple;
   static const green = Colors.green;
   static const red = Colors.red;
+  static const homePageBgColor = Color.fromARGB(255, 251, 247, 247);
+  static const transparent = Colors.transparent;
 }
