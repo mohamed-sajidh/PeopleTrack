@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:peopletrack/app/themes/app_colors.dart';
 
 class PersonalStatusIcon extends StatelessWidget {
-  const PersonalStatusIcon({super.key});
+  final int status;
+  const PersonalStatusIcon({super.key, required this.status});
 
   @override
   Widget build(BuildContext context) {
@@ -10,18 +11,18 @@ class PersonalStatusIcon extends StatelessWidget {
       height: 22,
       width: 75,
       decoration: BoxDecoration(
-        color: AppColors.lightGreen,
+        color: status == 1 ? AppColors.lightGreen : AppColors.lightRed,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: AppColors.green,
+          color: status == 1 ? AppColors.green : AppColors.red,
           width: 1.8,
         ),
       ),
-      child: const Center(
+      child: Center(
         child: Text(
           "Active",
           style: TextStyle(
-            color: AppColors.green,
+            color: status == 1 ? AppColors.green : AppColors.red,
             fontWeight: FontWeight.bold,
             fontSize: 12,
           ),

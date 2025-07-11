@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:peopletrack/app/themes/app_colors.dart';
+import 'package:peopletrack/viewmodels/personal_details_viewmodel.dart';
 import 'package:peopletrack/views/widgets/personal_status_icon.dart';
+import 'package:provider/provider.dart';
 
 class SinglePersonalDetails extends StatelessWidget {
-  const SinglePersonalDetails({super.key});
+  final int index;
+  const SinglePersonalDetails({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
+    final personalDetailsProvider =
+        Provider.of<PersonalDetailsViewmodel>(context);
+    var personalDetails = personalDetailsProvider.persoanalDetailsList[index];
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 6),
@@ -54,7 +60,7 @@ class SinglePersonalDetails extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 10),
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -62,29 +68,29 @@ class SinglePersonalDetails extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Esther Anil",
-                            style: TextStyle(
+                            "${personalDetails.firstName} ${personalDetails.lastName}",
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
                             ),
                           ),
-                          PersonalStatusIcon()
+                          PersonalStatusIcon(status: personalDetails.status)
                         ],
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Row(
                         children: [
                           Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.call,
                                 color: AppColors.black,
                                 size: 14,
                               ),
-                              SizedBox(width: 4),
+                              const SizedBox(width: 4),
                               Text(
-                                "09299292747",
-                                style: TextStyle(
+                                personalDetails.contactNumber,
+                                style: const TextStyle(
                                   color: AppColors.grey,
                                   fontSize: 13,
                                   fontWeight: FontWeight.bold,
@@ -92,18 +98,21 @@ class SinglePersonalDetails extends StatelessWidget {
                               )
                             ],
                           ),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.person,
                                 color: AppColors.black,
                                 size: 14,
                               ),
-                              SizedBox(width: 4),
+                              const SizedBox(width: 4),
                               Text(
-                                "colony owner",
-                                style: TextStyle(
+                                (personalDetails.roleDetails != null &&
+                                        personalDetails.roleDetails!.isNotEmpty)
+                                    ? personalDetails.roleDetails![0].role
+                                    : 'No role',
+                                style: const TextStyle(
                                   color: AppColors.grey,
                                   fontSize: 13,
                                   fontWeight: FontWeight.bold,
@@ -121,15 +130,15 @@ class SinglePersonalDetails extends StatelessWidget {
             const SizedBox(height: 5),
             const Divider(),
             const SizedBox(height: 1),
-            const Row(
+            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.location_on_outlined),
-                SizedBox(width: 6),
+                const Icon(Icons.location_on_outlined),
+                const SizedBox(width: 6),
                 Expanded(
                   child: Text(
-                    "Melay street, Puthucode, Palakkad, Kerala, India",
-                    style: TextStyle(
+                    "${personalDetails.address}, ${personalDetails.postcode}, ${personalDetails.state}, ${personalDetails.country}",
+                    style: const TextStyle(
                       color: AppColors.grey,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,

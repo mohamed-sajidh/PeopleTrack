@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:peopletrack/core/utils/config.dart';
 import 'package:peopletrack/core/utils/storage.dart';
+import 'package:peopletrack/viewmodels/personal_details_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 class AuthServices {
   static Future<String?> userLogin(
@@ -35,6 +37,13 @@ class AuthServices {
           final String accessToken = data['access_token'];
           print("accessToken -> $accessToken");
           await secureStorageService.storeToken(accessToken);
+
+          if (context.mounted) {
+            final personalDetailsProvider =
+                Provider.of<PersonalDetailsViewmodel>(context, listen: false);
+
+            personalDetailsProvider.getPersonalDetails();
+          }
         }
 
         return null;

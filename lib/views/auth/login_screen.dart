@@ -181,11 +181,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     return LoginButtonWidget(
                       text: "LOGIN",
                       onPressed: () {
-                        provider.userLogin(
-                          emailIdTextcontroller.text,
-                          passwordTextcontroller.text,
-                          context,
-                        );
+                        if (provider.isChecked) {
+                          provider.userLogin(
+                            emailIdTextcontroller.text,
+                            passwordTextcontroller.text,
+                            context,
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                  "Please accept 'Remember me' to proceed."),
+                              backgroundColor: AppColors.red,
+                            ),
+                          );
+                        }
                       },
                       loading: provider.isLoading,
                       formKey: formKey,

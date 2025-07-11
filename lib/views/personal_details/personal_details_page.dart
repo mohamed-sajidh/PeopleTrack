@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:peopletrack/app/themes/app_assets.dart';
 import 'package:peopletrack/app/themes/app_colors.dart';
+import 'package:peopletrack/viewmodels/personal_details_viewmodel.dart';
 import 'package:peopletrack/views/personal_details/single_personal_details.dart';
+import 'package:peopletrack/views/widgets/app_loader.dart';
 import 'package:peopletrack/views/widgets/search_bar.dart';
+import 'package:provider/provider.dart';
 
 class PersonalDetailsPage extends StatefulWidget {
   const PersonalDetailsPage({super.key});
@@ -166,19 +169,38 @@ class _PersonalDetailsPageState extends State<PersonalDetailsPage> {
             ),
           ),
           const SizedBox(height: 10),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 10,
-              ),
-              child: ListView.separated(
-                itemBuilder: (context, index) => const SinglePersonalDetails(),
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 15),
-                itemCount: 10,
-              ),
-            ),
+          Consumer<PersonalDetailsViewmodel>(
+            builder: (context, provider, child) {
+              if (provider.isLoader) {
+                return const Expanded(
+                  child: Center(
+                    child: AppLoadingIndicator(size: 20),
+                  ),
+                );
+              }
+              if (provider.persoanalDetailsList.isEmpty) {
+                return const Expanded(
+                  child: Center(
+                    child: Text("No Personal Details Found"),
+                  ),
+                );
+              }
+              return Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 10,
+                  ),
+                  child: ListView.separated(
+                    itemBuilder: (context, index) =>
+                        SinglePersonalDetails(index: index),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 15),
+                    itemCount: provider.persoanalDetailsList.length,
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
