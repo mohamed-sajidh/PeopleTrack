@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:peopletrack/app/themes/app_assets.dart';
 import 'package:peopletrack/app/themes/app_colors.dart';
+import 'package:peopletrack/viewmodels/auth_viewmodel.dart';
+import 'package:peopletrack/views/widgets/custom_button.dart';
 import 'package:peopletrack/views/widgets/custom_textfield.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -130,6 +133,105 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Consumer<AuthViewmodel>(
+                          builder: (context, provider, child) {
+                            return Checkbox(
+                              value: provider.isChecked,
+                              onChanged: (bool? value) {
+                                provider.changeCheckedbox();
+                              },
+                              activeColor: AppColors.primaryColor,
+                            );
+                          },
+                        ),
+                        const Text(
+                          "Remember me",
+                          style: TextStyle(
+                            color: AppColors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Text(
+                      "FORGOT PASSWORD",
+                      style: TextStyle(
+                        color: AppColors.primaryColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(height: 15),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: LoginButtonWidget(
+                  text: "LOGIN",
+                  onPressed: () {
+                    print("haiiidfd");
+                  },
+                  loading: false,
+                  formKey: formKey,
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        thickness: 0.7,
+                        color: AppColors.grey,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: Text("OR"),
+                    ),
+                    Expanded(
+                      child: Divider(
+                        thickness: 0.7,
+                        color: AppColors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Don't have an account?",
+                    style: TextStyle(
+                      color: AppColors.black,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 15,
+                    ),
+                  ),
+                  SizedBox(width: 6),
+                  Text(
+                    "Register",
+                    style: TextStyle(
+                      color: AppColors.primaryColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  )
+                ],
+              )
             ],
           ),
         ),
