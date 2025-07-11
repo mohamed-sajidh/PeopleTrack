@@ -5,7 +5,6 @@ import 'package:peopletrack/routes/route_generator.dart';
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,7 +14,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      initialRoute: AppRoutes.personalDetails,
+      initialRoute: AppRoutes.launcher,
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
