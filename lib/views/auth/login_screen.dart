@@ -176,13 +176,21 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 15),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: LoginButtonWidget(
-                  text: "LOGIN",
-                  onPressed: () {
-                    print("haiiidfd");
+                child: Consumer<AuthViewmodel>(
+                  builder: (context, provider, child) {
+                    return LoginButtonWidget(
+                      text: "LOGIN",
+                      onPressed: () {
+                        provider.userLogin(
+                          emailIdTextcontroller.text,
+                          passwordTextcontroller.text,
+                          context,
+                        );
+                      },
+                      loading: provider.isLoading,
+                      formKey: formKey,
+                    );
                   },
-                  loading: false,
-                  formKey: formKey,
                 ),
               ),
               const SizedBox(height: 20),
