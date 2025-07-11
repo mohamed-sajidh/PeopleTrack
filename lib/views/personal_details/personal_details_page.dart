@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:peopletrack/app/themes/app_assets.dart';
 import 'package:peopletrack/app/themes/app_colors.dart';
+import 'package:peopletrack/routes/app_routes.dart';
 import 'package:peopletrack/viewmodels/personal_details_viewmodel.dart';
 import 'package:peopletrack/views/personal_details/single_personal_details.dart';
 import 'package:peopletrack/views/widgets/app_loader.dart';
@@ -32,7 +33,6 @@ class _PersonalDetailsPageState extends State<PersonalDetailsPage> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    // final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: AppColors.homePageBgColor,
       appBar: AppBar(
@@ -206,7 +206,10 @@ class _PersonalDetailsPageState extends State<PersonalDetailsPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print("FAB pressed");
+          Navigator.pushNamed(
+            context,
+            AppRoutes.addPersonalDetails,
+          );
         },
         backgroundColor: AppColors.primaryColor,
         shape: const CircleBorder(),

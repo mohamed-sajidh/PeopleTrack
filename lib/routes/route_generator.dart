@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peopletrack/routes/app_routes.dart';
+import 'package:peopletrack/views/add_personal_details/add_personal_details.dart';
 import 'package:peopletrack/views/auth/login_screen.dart';
 import 'package:peopletrack/views/launcher_page.dart';
 import 'package:peopletrack/views/personal_details/personal_details_page.dart';
@@ -13,6 +14,9 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       case AppRoutes.personalDetails:
         return MaterialPageRoute(builder: (_) => const PersonalDetailsPage());
+      case AppRoutes.addPersonalDetails:
+        return MaterialPageRoute(builder: (_) => const AddPersonalDetails());
+
 
       default:
         return MaterialPageRoute(
