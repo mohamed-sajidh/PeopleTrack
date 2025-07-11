@@ -11,4 +11,6 @@ class AppColors {
   static const red = Colors.red;
   static const homePageBgColor = Color.fromARGB(255, 251, 247, 247);
   static const transparent = Colors.transparent;
+  static const lightRed = Color.fromARGB(255, 251, 167, 161);
+  static const lightGreen = Color.fromARGB(255, 199, 246, 200);
 }

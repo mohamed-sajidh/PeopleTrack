@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:peopletrack/app/themes/app_assets.dart';
 import 'package:peopletrack/app/themes/app_colors.dart';
+import 'package:peopletrack/views/personal_details/single_personal_details.dart';
+import 'package:peopletrack/views/widgets/search_bar.dart';
 
 class PersonalDetailsPage extends StatefulWidget {
   const PersonalDetailsPage({super.key});
@@ -10,6 +12,20 @@ class PersonalDetailsPage extends StatefulWidget {
 }
 
 class _PersonalDetailsPageState extends State<PersonalDetailsPage> {
+  late TextEditingController searchController;
+
+  @override
+  void initState() {
+    super.initState();
+    searchController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -38,7 +54,7 @@ class _PersonalDetailsPageState extends State<PersonalDetailsPage> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  const SizedBox(height: 60),
+                  const SizedBox(height: 70),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -91,6 +107,7 @@ class _PersonalDetailsPageState extends State<PersonalDetailsPage> {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 10),
                   const Text(
                     "Personal Details List",
                     style: TextStyle(
@@ -102,6 +119,80 @@ class _PersonalDetailsPageState extends State<PersonalDetailsPage> {
               ),
             ),
           ],
+        ),
+      ),
+      body: Column(
+        children: [
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: roundedSearchBar(
+                    controller: searchController,
+                    hintText: 'Search...',
+                    onChanged: (value) {
+                      // Do something with value
+                    },
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryColor,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.black.withOpacity(0.1),
+                        blurRadius: 8,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: const Center(
+                    child: Text(
+                      "GO",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 10,
+              ),
+              child: ListView.separated(
+                itemBuilder: (context, index) => const SinglePersonalDetails(),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 15),
+                itemCount: 10,
+              ),
+            ),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print("FAB pressed");
+        },
+        backgroundColor: AppColors.primaryColor,
+        shape: const CircleBorder(),
+        child: const Icon(
+          Icons.add,
+          color: AppColors.black,
+          size: 30,
+          weight: 700,
         ),
       ),
     );
